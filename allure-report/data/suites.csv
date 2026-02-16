@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","4636","has title","chromium","2026-02-16","passed","2026-02-16","","example.spec.ts","",""
+"","5637","Login","chromium","2026-02-16","passed","2026-02-16","Login Module","login.spec.ts","",""
+"","6971","Sign Up","chromium","2026-02-16","failed","2026-02-16","SignUp Module","SignUpTest.spec.ts","",""
