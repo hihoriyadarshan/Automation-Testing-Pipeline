@@ -1,7 +1,7 @@
 import { Page } from '@playwright/test';
 import { UIActions } from '../actions/uiActions';
 
-export class LoginPage {
+export class SignUpPage {
 
   private ui: UIActions;
 
@@ -10,9 +10,11 @@ export class LoginPage {
   }
 
   // ✅ Use readonly so locators cannot be modified accidentally
-  readonly username = "//input[@name='email']";
+  readonly CreateAccount = "//a[text()='Create an account']";
+  readonly Username = "//input[@name='userName']";
+  readonly email = "//input[@name='email']";
   readonly password = "//input[@name='password']";
-  readonly loginBtn = "//button[text()='Sign In']";
+  readonly CreateAccountButton = "//button[text()='Create Account']";
 
   // ------------------------------------------------
   // NAVIGATION
@@ -24,30 +26,22 @@ export class LoginPage {
   // ------------------------------------------------
   // LOGIN FLOW
   // ------------------------------------------------
-  async login(user: string, pass: string) {
+  async SignUp(username: string , email: string, pass: string) {
 
-    await this.ui.waitForVisible(this.username);
+    await this.ui.waitForVisible(this.CreateAccount);
+    await this.ui.Click(this.CreateAccount);
 
-    await this.ui.clearUsingKeyboard(this.username);
-    await this.ui.type(this.username, user);
+    await this.ui.waitForVisible(this.Username);
+    await this.ui.Click(this.Username);
+    await this.ui.type(this.Username, username);
+
+    await this.ui.clearUsingKeyboard(this.email);
+    await this.ui.type(this.email, email);
 
     await this.ui.clearUsingKeyboard(this.password);
     await this.ui.type(this.password, pass);
 
     // Uses auto-retry click from UIActions
-    await this.ui.Click(this.loginBtn);
+    await this.ui.Click(this.CreateAccountButton);
   }
-
-  // ------------------------------------------------
-  // VALIDATION
-  // ------------------------------------------------
-  async isLoginSuccess(): Promise<boolean> {
-
-    await this.page.waitForLoadState('networkidle');
-
-    const currentUrl = this.page.url();
-
-    return currentUrl.includes('dashboard');
-  }
-
 }
